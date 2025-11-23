@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-terminal-bg text-terminal-white font-mono;
+  overflow-x: hidden;
+}
+
+/* Terminal scanline effect - subtle version */
+.terminal-scanline::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 255, 65, 0.008) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: scan-line 8s linear infinite;
+}
+
+/* Glowing text effect - subtle version */
+.glow-text {
+  text-shadow: 0 0 5px rgba(0, 255, 65, 0.3),
+               0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+/* Terminal cursor */
+.cursor::after {
+  content: "▋";
+  @apply text-terminal-green animate-blink ml-1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-terminal-darker;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-terminal-green-dim;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-terminal-green;
+}
+
+/* CRT screen flicker */
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+/* Code block styling */
+pre {
+  @apply bg-terminal-darker border border-terminal-green-dim p-4 rounded-lg overflow-x-auto my-4;
+}
+
+code {
+  @apply text-terminal-green-bright font-mono text-sm;
+}
+
+/* Link styling */
+a {
+  @apply text-terminal-green hover:text-terminal-green-bright transition-colors duration-200;
+  text-decoration: none;
+}
+
+a:hover {
+  text-shadow: 0 0 3px rgba(0, 255, 65, 0.3);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 255, 65, 0.3);
+  color: #fff;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Table styling */
+table {
+  @apply w-full border-collapse my-6;
+}
+
+th, td {
+  @apply border border-terminal-green-dim p-3 text-left;
+}
+
+th {
+  @apply bg-terminal-darker text-terminal-green font-semibold;
+}
+
+tr:hover {
+  @apply bg-terminal-darker bg-opacity-50;
+}
+
+/* List styling */
+ul, ol {
+  @apply ml-6 my-4 space-y-2;
+}
+
+li {
+  @apply leading-relaxed;
+}
+
+ul li::marker {
+  @apply text-terminal-green;
+}
+
+/* Horizontal rule */
+hr {
+  @apply border-terminal-green-dim my-8;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply text-terminal-green font-bold my-4;
+}
+
+h1 { @apply text-4xl md:text-5xl; }
+h2 { @apply text-3xl md:text-4xl; }
+h3 { @apply text-2xl md:text-3xl; }
+h4 { @apply text-xl md:text-2xl; }
+
+/* Paragraph spacing */
+p {
+  @apply my-3 leading-relaxed;
+}
+
+/* Strong/bold text */
+strong {
+  @apply text-terminal-green-bright font-semibold;
+}
+
+/* Emphasis/italic */
+em {
+  @apply text-terminal-white italic;
+}
+
+/* Blockquote */
+blockquote {
+  @apply border-l-4 border-terminal-green pl-4 italic my-4;
+}
+
